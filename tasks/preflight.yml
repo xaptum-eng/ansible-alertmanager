@@ -39,14 +39,18 @@
     - alertmanager_version == "latest"
     - alertmanager_binary_local_dir | length == 0
 
-- name: "Get checksum for {{ go_arch }} architecture"
-  set_fact:
-    alertmanager_checksum: "{{ item.split(' ')[0] }}"
-  with_items:
-    - "{{ lookup('url', 'https://github.com/prometheus/alertmanager/releases/download/v' + alertmanager_version + '/sha256sums.txt', wantlist=True) | list }}"
-  when:
-    - "('linux-' + go_arch + '.tar.gz') in item"
-    - alertmanager_binary_local_dir | length == 0
+
+# TODO: figure out later why this task results in this error every time for me (ansible version?)
+# TASK [cloudalchemy.ansible-alertmanager : Get checksum for amd64 architecture] ***
+#              amazon-ebs: objc[53991]: +[NSValue initialize] may have been in progress in another thread when fork() was called.
+#- name: "Get checksum for {{ go_arch }} architecture"
+#  set_fact:
+#    alertmanager_checksum: "{{ item.split(' ')[0] }}"
+#  with_items:
+#    - "{{ lookup('url', 'https://github.com/prometheus/alertmanager/releases/download/v' + alertmanager_version + '/sha256sums.txt', wantlist=True) | list }}"
+#  when:
+#    - "('linux-' + go_arch + '.tar.gz') in item"
+#    - alertmanager_binary_local_dir | length == 0
 
 - name: Fail when extra config flags are duplicating ansible variables
   fail:
