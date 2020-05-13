@@ -39,10 +39,9 @@
       run_once: true
 
     - name: unpack alertmanager binaries
-      become: false
-      unarchive:
-        src: "/tmp/alertmanager-{{ alertmanager_version }}.linux-{{ go_arch }}.tar.gz"
-        dest: "/tmp"
+      shell:
+        cmd: tar -xvf "/tmp/alertmanager-{{ alertmanager_version }}.linux-{{ go_arch }}.tar.gz"
+        chdir: /tmp
         creates: "/tmp/alertmanager-{{ alertmanager_version }}.linux-{{ go_arch }}/alertmanager"
 
     - name: propagate official alertmanager and amtool binaries
