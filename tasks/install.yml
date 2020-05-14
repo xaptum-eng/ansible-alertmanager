@@ -57,8 +57,6 @@
         - amtool
       notify:
         - restart alertmanager
-  when: alertmanager_binary_install_dir | length == 0
-
 
 #- name: grant access to ports < 1024 to alertmanager user
 #  command: setcap CAP_NET_BIND_SERVICE=+eip {{ alertmanager_binary_install_dir }}/alertmanager
