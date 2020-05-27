@@ -46,11 +46,11 @@ templates:
 receivers:
 - name: 'slack-notifications'
   slack_configs:
-  - channel: {% raw }{{ slack_channel }}{% endraw }
+  - channel: {{ '{{ slack_channel }}' }}
     username: 'Alertmanager'
     send_resolved: true
-    title: {% raw }{{ slack_alert_title }}{% endraw }
-    text: {% raw }{{ slack_alert_text }}{% endraw }
+    title: {{ '{{ slack_alert_title }}' }}
+    text: {{ '{{ slack_alert_text }}' }}
 {% if alertmanager_receivers | length %}
 {{ '{{ alertmanager_receivers}}' | to_nice_yaml(indent=2) }}
 {% endif %}
