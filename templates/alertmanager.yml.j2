@@ -39,8 +39,16 @@ global:
 templates:
 - '{{ alertmanager_config_dir }}/templates/*.tmpl'
 {% if alertmanager_receivers | length %}
-receivers:
 {{ '{{ alertmanager_receivers}}' | to_nice_yaml(indent=2) }}
+{% else %}
+receivers:
+- name: 'slack-notifications'
+  slack_configs:
+  - channel: {% raw }{{ slack_channel }}{% endraw }
+    username: 'Alertmanager'
+    send_resolved: true
+    title: {% raw }{{ slack_alert_title }}{% endraw }
+    text: {% raw }{{ slack_alert_text }}{% endraw }
 {% endif %}
 {% if alertmanager_inhibit_rules | length %}
 inhibit_rules:
