@@ -45,8 +45,8 @@ receivers:
   - channel: {{ slack_channel }}
     username: 'Alertmanager'
     send_resolved: true
-    title: {{ '{{' }}slack_alert_title{{ '}}' }}
-    text: {{ '{{' }}slack_alert_text{{ '}}' }}
+    title: {{ '{{ slack_alert_title }}' }}
+    text: {{ '{{ slack_alert_text }}' }}
 
 {% endif %}
 {% if alertmanager_inhibit_rules | length %}
