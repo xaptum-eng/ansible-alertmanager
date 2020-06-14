@@ -45,10 +45,9 @@ receivers:
   - channel: {{ slack_channel }}
     username: 'Alertmanager'
     send_resolved: true
-{% raw %s}
-    title: '{{ template "slack.xaptum.title" . }}'
-    text: '{{ template "slack.xaptum.text" . }}'
-{% endraw %}
+    title: !unsafe '{{ template "slack.xaptum.title" . }}'
+    text: !unsafe '{{ template "slack.xaptum.text" . }}'
+
 
 {% endif %}
 {% if alertmanager_inhibit_rules | length %}
