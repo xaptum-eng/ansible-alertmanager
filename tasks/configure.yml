@@ -32,3 +32,11 @@
   with_fileglob: "{{ alertmanager_template_files }}"
   notify:
     - restart alertmanager
+
+- name: Insert template references to slack notification receiver
+  blockinfile:
+    path: {{ alertmanager_config_dir }}/alertmanager.yml
+    insertafter: "    send_resolved: true"
+    block: |
+        title: '{{ template "slack.xaptum.title" . }}'
+        text: '{{ template "slack.xaptum.text" . }}'
